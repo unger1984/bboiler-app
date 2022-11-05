@@ -8,7 +8,7 @@ class RelayProviderImpl extends RelayProvider {
   int _pin;
   late GpioLine _gpio;
   bool state = false;
-  final uuid = Uuid();
+  final uuid = const Uuid();
 
   RelayProviderImpl({required int pin}) : _pin = pin {
     final chip = FlutterGpiod.instance.chips.singleWhere(
@@ -17,6 +17,9 @@ class RelayProviderImpl extends RelayProvider {
     );
     _gpio = chip.lines[_pin];
     _gpio.requestOutput(initialValue: false, consumer: 'flutter_gpiod ${uuid.v4()}');
+    _gpio.setValue(false);
+    _gpio.release();
+    state = false;
   }
 
   @override
@@ -24,9 +27,8 @@ class RelayProviderImpl extends RelayProvider {
     if (Platform.isLinux) {
       _gpio.setValue(false);
       _gpio.release();
-    } else {
-      state = false;
     }
+    state = false;
   }
 
   @override
@@ -34,23 +36,18 @@ class RelayProviderImpl extends RelayProvider {
     if (Platform.isLinux) {
       _gpio.setValue(true);
       _gpio.release();
-    } else {
-      state = true;
     }
+    state = true;
   }
 
   @override
   bool status() {
-    if (Platform.isLinux) state = _gpio.getValue();
-
     return state;
   }
 
   @override
   void dispose() {
-    if (Platform.isLinux) {
-      // _gpio.
-    }
+    // TODO
   }
 
   @override
@@ -66,7 +63,10 @@ class RelayProviderImpl extends RelayProvider {
         orElse: () => FlutterGpiod.instance.chips.singleWhere((chip) => chip.label == 'pinctrl-bcm2835'),
       );
       _gpio = chip.lines[22];
-      _gpio.requestOutput(initialValue: false, consumer: '');
+      _gpio.requestOutput(initialValue: false, consumer: 'flutter_gpiod ${uuid.v4()}');
+      _gpio.setValue(false);
+      _gpio.release();
+      state = false;
     }
   }
 
