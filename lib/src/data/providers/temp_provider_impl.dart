@@ -16,12 +16,12 @@ class TempProviderImpl extends TempProvider {
     final result = <TempEntity>[];
     for (var device in devices) {
       try {
-        final temp = await _getTempFromFile(File('/sys/bus/w1/devices/$device/w1_slave'));
+        final temp = await _getTempFromFile(File('/sys/bus/w1/devices/$device'));
         if (temp != null) {
           result.add(TempEntity(name: device, value: temp));
         }
       } catch (exc) {
-        logger.e('/sys/bus/w1/devices/$device/w1_slave', exc);
+        logger.e('/sys/bus/w1/devices/$device', exc);
       }
     }
     if (result.isEmpty) {
