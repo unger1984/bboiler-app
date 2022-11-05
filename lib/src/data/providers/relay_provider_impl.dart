@@ -18,7 +18,6 @@ class RelayProviderImpl extends RelayProvider {
     _gpio = chip.lines[_pin];
     _gpio.requestOutput(initialValue: false, consumer: 'flutter_gpiod ${uuid.v4()}');
     _gpio.setValue(false);
-    _gpio.release();
     state = false;
   }
 
@@ -26,7 +25,6 @@ class RelayProviderImpl extends RelayProvider {
   void off() {
     if (Platform.isLinux) {
       _gpio.setValue(false);
-      _gpio.release();
     }
     state = false;
   }
@@ -35,7 +33,6 @@ class RelayProviderImpl extends RelayProvider {
   void on() {
     if (Platform.isLinux) {
       _gpio.setValue(true);
-      _gpio.release();
     }
     state = true;
   }
@@ -47,7 +44,7 @@ class RelayProviderImpl extends RelayProvider {
 
   @override
   void dispose() {
-    // TODO
+    _gpio.release();
   }
 
   @override
@@ -65,7 +62,6 @@ class RelayProviderImpl extends RelayProvider {
       _gpio = chip.lines[22];
       _gpio.requestOutput(initialValue: false, consumer: 'flutter_gpiod ${uuid.v4()}');
       _gpio.setValue(false);
-      _gpio.release();
       state = false;
     }
   }
