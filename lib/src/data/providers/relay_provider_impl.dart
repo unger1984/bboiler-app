@@ -1,21 +1,27 @@
 import 'dart:io';
 
 import 'package:bboiler/src/domain/providers/relay_provider.dart';
-import 'package:dart_periphery/dart_periphery.dart';
+import 'package:flutter_gpiod/flutter_gpiod.dart';
 
 class RelayProviderImpl extends RelayProvider {
   int _pin;
-  late GPIO _gpio;
+  late GpioLine _gpio;
   bool state = false;
 
   RelayProviderImpl({required int pin}) : _pin = pin {
-    if (Platform.isLinux) _gpio = GPIO(_pin, GPIOdirection.gpioDirOut);
+    final chip = FlutterGpiod.instance.chips.singleWhere(
+      (chip) => chip.label == 'pinctrl-bcm2711',
+      orElse: () => FlutterGpiod.instance.chips.singleWhere((chip) => chip.label == 'pinctrl-bcm2835'),
+    );
+    _gpio = chip.lines[22];
+    _gpio.requestOutput(initialValue: false, consumer: '');
   }
 
   @override
   void off() {
     if (Platform.isLinux) {
-      _gpio.write(false);
+      _gpio.setValue(false);
+      _gpio.release();
     } else {
       state = false;
     }
@@ -24,7 +30,8 @@ class RelayProviderImpl extends RelayProvider {
   @override
   void on() {
     if (Platform.isLinux) {
-      _gpio.write(true);
+      _gpio.setValue(true);
+      _gpio.release();
     } else {
       state = true;
     }
@@ -32,7 +39,7 @@ class RelayProviderImpl extends RelayProvider {
 
   @override
   bool status() {
-    if (Platform.isLinux) state = _gpio.read();
+    if (Platform.isLinux) state = _gpio.getValue();
 
     return state;
   }
@@ -40,18 +47,25 @@ class RelayProviderImpl extends RelayProvider {
   @override
   void dispose() {
     if (Platform.isLinux) {
-      _gpio.dispose();
+      // _gpio.
     }
   }
 
   @override
   void changePin(int pin) {
     if (Platform.isLinux) {
-      _gpio.write(false);
-      _gpio.dispose();
+      _gpio.setValue(false);
+      _gpio.release();
     }
     _pin = pin;
-    if (Platform.isLinux) _gpio = GPIO(_pin, GPIOdirection.gpioDirOut);
+    if (Platform.isLinux) {
+      final chip = FlutterGpiod.instance.chips.singleWhere(
+        (chip) => chip.label == 'pinctrl-bcm2711',
+        orElse: () => FlutterGpiod.instance.chips.singleWhere((chip) => chip.label == 'pinctrl-bcm2835'),
+      );
+      _gpio = chip.lines[22];
+      _gpio.requestOutput(initialValue: false, consumer: '');
+    }
   }
 
   @override
