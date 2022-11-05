@@ -16,12 +16,12 @@ class TempProviderImpl extends TempProvider {
     final result = <TempEntity>[];
     for (var device in devices) {
       try {
-        final temp = await _getTempFromFile(File('/sys/bus/w1/devices/$device'));
+        final temp = await _getTempFromFile(File('/sys/bus/w1/devices/$device/w1_slave'));
         if (temp != null) {
           result.add(TempEntity(name: device, value: temp));
         }
       } catch (exc) {
-        logger.e('/sys/bus/w1/devices/$device', exc);
+        logger.e('/sys/bus/w1/devices/$device/w1_slave', exc);
       }
     }
     if (result.isEmpty) {
@@ -69,8 +69,8 @@ class TempProviderImpl extends TempProvider {
           .map((e) => e.path.split('/').last)
           .where((element) => !RegExp(r'^\.').hasMatch(element))
           .where((element) => RegExp(r'^\d').hasMatch(element))
-          .toList()
-          .map((e) => '/sys/bus/w1/devices/$e/w1_slave')
+          // .toList()
+          // .map((e) => '/sys/bus/w1/devices/$e/w1_slave')
           .toList();
     } catch (exc) {
       // TODO.
