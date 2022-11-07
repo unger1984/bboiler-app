@@ -41,9 +41,8 @@ class SettingsProviderImpl extends SettingsProvider {
       timeBoiling: 60,
       pauses: [PauseModel(temp: 72, time: 60)],
       hops: [HopModel(time: 30)],
-      tenPin: 12,
-      pumpPin: 13,
-      pwmPin: 14,
+      tenPin: 7,
+      pumpPin: 4,
     );
   }
 }

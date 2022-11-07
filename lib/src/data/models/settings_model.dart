@@ -19,7 +19,6 @@ class SettingsModel extends SettingsEntity with _$SettingsModel {
     required List<HopModel> hops,
     required int tenPin,
     required int pumpPin,
-    required int pwmPin,
   }) = _SettingsModel;
 
   factory SettingsModel.fromJson(Map<String, dynamic> json) => _$SettingsModelFromJson(json);
@@ -35,6 +34,5 @@ class SettingsModel extends SettingsEntity with _$SettingsModel {
         hops: entity.hops.map((item) => HopModel.fromEntity(item)).toList(),
         tenPin: entity.tenPin,
         pumpPin: entity.pumpPin,
-        pwmPin: entity.pwmPin,
       );
 }

@@ -39,7 +39,6 @@ class SessionProviderImpl extends SessionProvider {
       pause: 0,
       hop: 0,
       ten: false,
-      tenPower: 1,
       pump: false,
       manualTen: false,
       manualPump: false,

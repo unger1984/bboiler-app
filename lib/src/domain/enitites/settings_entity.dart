@@ -12,7 +12,6 @@ class SettingsEntity {
   final List<HopEntity> hops;
   final int tenPin;
   final int pumpPin;
-  final int pwmPin;
 
   const SettingsEntity({
     required this.tempMalt,
@@ -25,6 +24,5 @@ class SettingsEntity {
     required this.hops,
     required this.tenPin,
     required this.pumpPin,
-    required this.pwmPin,
   });
 }

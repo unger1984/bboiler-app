@@ -8,7 +8,6 @@ import 'package:bboiler/src/presentation/widgets/boiling/boiling_main.dart';
 import 'package:bboiler/src/presentation/widgets/boiling/card_temp.dart';
 import 'package:bboiler/src/presentation/widgets/boiling/pump_state_widget.dart';
 import 'package:bboiler/src/presentation/widgets/boiling/temp_state_widget.dart';
-import 'package:bboiler/src/presentation/widgets/boiling/ten_power_widget.dart';
 import 'package:bboiler/src/presentation/widgets/boiling/ten_state_widget.dart';
 import 'package:bboiler/src/presentation/widgets/boiling/timer_widget.dart';
 import 'package:bboiler/src/presentation/widgets/common/bottom_panel.dart';
@@ -37,22 +36,6 @@ class BoilingPage extends StatelessWidget {
 
                 return Row(
                   children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Expanded(
-                                child: CardTemp(temp: middleTemp),
-                              ),
-                            ],
-                          ),
-                          const BoilingMain(),
-                        ],
-                      ),
-                    ),
                     Card(
                       child: Container(
                         width: 300,
@@ -79,7 +62,6 @@ class BoilingPage extends StatelessWidget {
                             ),
                             const SizedBox(height: 5),
                             TenStateWidget(ten: session.data.ten),
-                            TenPowerWidget(power: session.data.tenPower),
                             const SizedBox(height: 5),
                             const Text(
                               'НАСОС',
@@ -98,6 +80,24 @@ class BoilingPage extends StatelessWidget {
                             const TimerWidget(),
                           ],
                         ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(
+                                child: CardTemp(temp: middleTemp),
+                              ),
+                            ],
+                          ),
+                          const Expanded(
+                            child: BoilingMain(),
+                          ),
+                        ],
                       ),
                     ),
                   ],

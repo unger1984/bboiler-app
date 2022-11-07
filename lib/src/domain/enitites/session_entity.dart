@@ -21,7 +21,6 @@ class SessionEntity {
   final int pause;
   final int hop;
   final bool ten;
-  final double tenPower;
   final bool pump;
   final bool manualTen;
   final bool manualPump;
@@ -38,7 +37,6 @@ class SessionEntity {
     required this.pause,
     required this.hop,
     required this.ten,
-    required this.tenPower,
     required this.pump,
     required this.manualTen,
     required this.manualPump,

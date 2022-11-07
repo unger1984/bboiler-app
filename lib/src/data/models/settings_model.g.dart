@@ -22,7 +22,6 @@ _$_SettingsModel _$$_SettingsModelFromJson(Map<String, dynamic> json) =>
           .toList(),
       tenPin: json['tenPin'] as int,
       pumpPin: json['pumpPin'] as int,
-      pwmPin: json['pwmPin'] as int,
     );
 
 Map<String, dynamic> _$$_SettingsModelToJson(_$_SettingsModel instance) =>
@@ -37,5 +36,4 @@ Map<String, dynamic> _$$_SettingsModelToJson(_$_SettingsModel instance) =>
       'hops': instance.hops,
       'tenPin': instance.tenPin,
       'pumpPin': instance.pumpPin,
-      'pwmPin': instance.pwmPin,
     };

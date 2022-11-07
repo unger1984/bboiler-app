@@ -18,20 +18,19 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SettingsEvent {
   int get tenPin => throw _privateConstructorUsedError;
   int get pumpPin => throw _privateConstructorUsedError;
-  int get pwmPin => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int tenPin, int pumpPin, int pwmPin) save,
+    required TResult Function(int tenPin, int pumpPin) save,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int tenPin, int pumpPin, int pwmPin)? save,
+    TResult? Function(int tenPin, int pumpPin)? save,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int tenPin, int pumpPin, int pwmPin)? save,
+    TResult Function(int tenPin, int pumpPin)? save,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -63,7 +62,7 @@ abstract class $SettingsEventCopyWith<$Res> {
           SettingsEvent value, $Res Function(SettingsEvent) then) =
       _$SettingsEventCopyWithImpl<$Res, SettingsEvent>;
   @useResult
-  $Res call({int tenPin, int pumpPin, int pwmPin});
+  $Res call({int tenPin, int pumpPin});
 }
 
 /// @nodoc
@@ -81,7 +80,6 @@ class _$SettingsEventCopyWithImpl<$Res, $Val extends SettingsEvent>
   $Res call({
     Object? tenPin = null,
     Object? pumpPin = null,
-    Object? pwmPin = null,
   }) {
     return _then(_value.copyWith(
       tenPin: null == tenPin
@@ -91,10 +89,6 @@ class _$SettingsEventCopyWithImpl<$Res, $Val extends SettingsEvent>
       pumpPin: null == pumpPin
           ? _value.pumpPin
           : pumpPin // ignore: cast_nullable_to_non_nullable
-              as int,
-      pwmPin: null == pwmPin
-          ? _value.pwmPin
-          : pwmPin // ignore: cast_nullable_to_non_nullable
               as int,
     ) as $Val);
   }
@@ -108,7 +102,7 @@ abstract class _$$SaveSettingsEventCopyWith<$Res>
       __$$SaveSettingsEventCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int tenPin, int pumpPin, int pwmPin});
+  $Res call({int tenPin, int pumpPin});
 }
 
 /// @nodoc
@@ -124,7 +118,6 @@ class __$$SaveSettingsEventCopyWithImpl<$Res>
   $Res call({
     Object? tenPin = null,
     Object? pumpPin = null,
-    Object? pwmPin = null,
   }) {
     return _then(_$SaveSettingsEvent(
       tenPin: null == tenPin
@@ -135,10 +128,6 @@ class __$$SaveSettingsEventCopyWithImpl<$Res>
           ? _value.pumpPin
           : pumpPin // ignore: cast_nullable_to_non_nullable
               as int,
-      pwmPin: null == pwmPin
-          ? _value.pwmPin
-          : pwmPin // ignore: cast_nullable_to_non_nullable
-              as int,
     ));
   }
 }
@@ -146,20 +135,17 @@ class __$$SaveSettingsEventCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SaveSettingsEvent extends SaveSettingsEvent {
-  const _$SaveSettingsEvent(
-      {required this.tenPin, required this.pumpPin, required this.pwmPin})
+  const _$SaveSettingsEvent({required this.tenPin, required this.pumpPin})
       : super._();
 
   @override
   final int tenPin;
   @override
   final int pumpPin;
-  @override
-  final int pwmPin;
 
   @override
   String toString() {
-    return 'SettingsEvent.save(tenPin: $tenPin, pumpPin: $pumpPin, pwmPin: $pwmPin)';
+    return 'SettingsEvent.save(tenPin: $tenPin, pumpPin: $pumpPin)';
   }
 
   @override
@@ -168,12 +154,11 @@ class _$SaveSettingsEvent extends SaveSettingsEvent {
         (other.runtimeType == runtimeType &&
             other is _$SaveSettingsEvent &&
             (identical(other.tenPin, tenPin) || other.tenPin == tenPin) &&
-            (identical(other.pumpPin, pumpPin) || other.pumpPin == pumpPin) &&
-            (identical(other.pwmPin, pwmPin) || other.pwmPin == pwmPin));
+            (identical(other.pumpPin, pumpPin) || other.pumpPin == pumpPin));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, tenPin, pumpPin, pwmPin);
+  int get hashCode => Object.hash(runtimeType, tenPin, pumpPin);
 
   @JsonKey(ignore: true)
   @override
@@ -184,27 +169,27 @@ class _$SaveSettingsEvent extends SaveSettingsEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int tenPin, int pumpPin, int pwmPin) save,
+    required TResult Function(int tenPin, int pumpPin) save,
   }) {
-    return save(tenPin, pumpPin, pwmPin);
+    return save(tenPin, pumpPin);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int tenPin, int pumpPin, int pwmPin)? save,
+    TResult? Function(int tenPin, int pumpPin)? save,
   }) {
-    return save?.call(tenPin, pumpPin, pwmPin);
+    return save?.call(tenPin, pumpPin);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int tenPin, int pumpPin, int pwmPin)? save,
+    TResult Function(int tenPin, int pumpPin)? save,
     required TResult orElse(),
   }) {
     if (save != null) {
-      return save(tenPin, pumpPin, pwmPin);
+      return save(tenPin, pumpPin);
     }
     return orElse();
   }
@@ -241,16 +226,13 @@ class _$SaveSettingsEvent extends SaveSettingsEvent {
 abstract class SaveSettingsEvent extends SettingsEvent {
   const factory SaveSettingsEvent(
       {required final int tenPin,
-      required final int pumpPin,
-      required final int pwmPin}) = _$SaveSettingsEvent;
+      required final int pumpPin}) = _$SaveSettingsEvent;
   const SaveSettingsEvent._() : super._();
 
   @override
   int get tenPin;
   @override
   int get pumpPin;
-  @override
-  int get pwmPin;
   @override
   @JsonKey(ignore: true)
   _$$SaveSettingsEventCopyWith<_$SaveSettingsEvent> get copyWith =>

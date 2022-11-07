@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:bboiler/src/data/providers/pwm_provider_impl.dart';
 import 'package:bboiler/src/data/providers/relay_provider_impl.dart';
 import 'package:bboiler/src/data/providers/session_provider_impl.dart';
 import 'package:bboiler/src/data/providers/settings_provider_impl.dart';
@@ -14,6 +13,7 @@ import 'package:bboiler/src/domain/service_locator.dart';
 import 'package:bboiler/src/presentation/app.dart';
 import 'package:bboiler/src/utils/logger.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
+import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,6 +21,8 @@ const baseUrl = 'https://owa.famil.ru/s8zf4hss2lj9fv';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await DesktopWindow.toggleFullScreen();
 
   final settingsProvider = SettingsProviderImpl();
   final sessionProvider = SessionProviderImpl();
@@ -30,13 +32,11 @@ void main() async {
 
   final tenProvider = RelayProviderImpl(pin: settings.tenPin);
   final pumpProvider = RelayProviderImpl(pin: settings.pumpPin);
-  final powerProvider = PwmProviderImpl(pin: settings.pwmPin);
   final tempProvider = TempProviderImpl();
 
   final deviceRepository = DeviceRepositoryImpl(
     ten: tenProvider,
     pump: pumpProvider,
-    power: powerProvider,
     temp: tempProvider,
   );
 

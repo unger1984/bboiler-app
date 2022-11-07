@@ -20,13 +20,11 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   final pinTenController = TextEditingController();
   final pinPumpController = TextEditingController();
-  final pinPWMController = TextEditingController();
 
   @override
   void initState() {
     final settings = BlocProvider.of<SettingsBLoC>(context).state.data;
     pinPumpController.text = settings.pumpPin.toString();
-    pinPWMController.text = settings.pwmPin.toString();
     pinTenController.text = settings.tenPin.toString();
     super.initState();
   }
@@ -34,9 +32,8 @@ class _SettingsPageState extends State<SettingsPage> {
   void handleSave() {
     final pinTen = int.tryParse(pinTenController.value.text);
     final pinPump = int.tryParse(pinPumpController.value.text);
-    final pinPwm = int.tryParse(pinPWMController.value.text);
-    if (pinTen != null && pinPump != null && pinPwm != null) {
-      BlocProvider.of<SettingsBLoC>(context).add(SaveSettingsEvent(tenPin: pinTen, pumpPin: pinPump, pwmPin: pinPwm));
+    if (pinTen != null && pinPump != null) {
+      BlocProvider.of<SettingsBLoC>(context).add(SaveSettingsEvent(tenPin: pinTen, pumpPin: pinPump));
     }
   }
 
@@ -70,25 +67,25 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Text('Тен ШИМ PIN №'),
-                      SizedBox(
-                        width: 100,
-                        child: TextField(
-                          textAlign: TextAlign.end,
-                          controller: pinPWMController,
-                          decoration: const InputDecoration(labelText: "pin"),
-                          keyboardType: TextInputType.number,
-                          inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter.digitsOnly,
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   crossAxisAlignment: CrossAxisAlignment.center,
+                  //   children: [
+                  //     const Text('Тен ШИМ PIN №'),
+                  //     SizedBox(
+                  //       width: 100,
+                  //       child: TextField(
+                  //         textAlign: TextAlign.end,
+                  //         controller: pinPWMController,
+                  //         decoration: const InputDecoration(labelText: "pin"),
+                  //         keyboardType: TextInputType.number,
+                  //         inputFormatters: <TextInputFormatter>[
+                  //           FilteringTextInputFormatter.digitsOnly,
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,

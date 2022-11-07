@@ -30,7 +30,6 @@ mixin _$SettingsModel {
   List<HopModel> get hops => throw _privateConstructorUsedError;
   int get tenPin => throw _privateConstructorUsedError;
   int get pumpPin => throw _privateConstructorUsedError;
-  int get pwmPin => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,8 +53,7 @@ abstract class $SettingsModelCopyWith<$Res> {
       List<PauseModel> pauses,
       List<HopModel> hops,
       int tenPin,
-      int pumpPin,
-      int pwmPin});
+      int pumpPin});
 }
 
 /// @nodoc
@@ -81,7 +79,6 @@ class _$SettingsModelCopyWithImpl<$Res, $Val extends SettingsModel>
     Object? hops = null,
     Object? tenPin = null,
     Object? pumpPin = null,
-    Object? pwmPin = null,
   }) {
     return _then(_value.copyWith(
       tempMalt: null == tempMalt
@@ -124,10 +121,6 @@ class _$SettingsModelCopyWithImpl<$Res, $Val extends SettingsModel>
           ? _value.pumpPin
           : pumpPin // ignore: cast_nullable_to_non_nullable
               as int,
-      pwmPin: null == pwmPin
-          ? _value.pwmPin
-          : pwmPin // ignore: cast_nullable_to_non_nullable
-              as int,
     ) as $Val);
   }
 }
@@ -150,8 +143,7 @@ abstract class _$$_SettingsModelCopyWith<$Res>
       List<PauseModel> pauses,
       List<HopModel> hops,
       int tenPin,
-      int pumpPin,
-      int pwmPin});
+      int pumpPin});
 }
 
 /// @nodoc
@@ -175,7 +167,6 @@ class __$$_SettingsModelCopyWithImpl<$Res>
     Object? hops = null,
     Object? tenPin = null,
     Object? pumpPin = null,
-    Object? pwmPin = null,
   }) {
     return _then(_$_SettingsModel(
       tempMalt: null == tempMalt
@@ -218,10 +209,6 @@ class __$$_SettingsModelCopyWithImpl<$Res>
           ? _value.pumpPin
           : pumpPin // ignore: cast_nullable_to_non_nullable
               as int,
-      pwmPin: null == pwmPin
-          ? _value.pwmPin
-          : pwmPin // ignore: cast_nullable_to_non_nullable
-              as int,
     ));
   }
 }
@@ -239,8 +226,7 @@ class _$_SettingsModel implements _SettingsModel {
       required final List<PauseModel> pauses,
       required final List<HopModel> hops,
       required this.tenPin,
-      required this.pumpPin,
-      required this.pwmPin})
+      required this.pumpPin})
       : _pauses = pauses,
         _hops = hops;
 
@@ -277,12 +263,10 @@ class _$_SettingsModel implements _SettingsModel {
   final int tenPin;
   @override
   final int pumpPin;
-  @override
-  final int pwmPin;
 
   @override
   String toString() {
-    return 'SettingsModel(tempMalt: $tempMalt, tempMashOut: $tempMashOut, tempBoiling: $tempBoiling, tempDiff: $tempDiff, timeMeshout: $timeMeshout, timeBoiling: $timeBoiling, pauses: $pauses, hops: $hops, tenPin: $tenPin, pumpPin: $pumpPin, pwmPin: $pwmPin)';
+    return 'SettingsModel(tempMalt: $tempMalt, tempMashOut: $tempMashOut, tempBoiling: $tempBoiling, tempDiff: $tempDiff, timeMeshout: $timeMeshout, timeBoiling: $timeBoiling, pauses: $pauses, hops: $hops, tenPin: $tenPin, pumpPin: $pumpPin)';
   }
 
   @override
@@ -305,8 +289,7 @@ class _$_SettingsModel implements _SettingsModel {
             const DeepCollectionEquality().equals(other._pauses, _pauses) &&
             const DeepCollectionEquality().equals(other._hops, _hops) &&
             (identical(other.tenPin, tenPin) || other.tenPin == tenPin) &&
-            (identical(other.pumpPin, pumpPin) || other.pumpPin == pumpPin) &&
-            (identical(other.pwmPin, pwmPin) || other.pwmPin == pwmPin));
+            (identical(other.pumpPin, pumpPin) || other.pumpPin == pumpPin));
   }
 
   @JsonKey(ignore: true)
@@ -322,8 +305,7 @@ class _$_SettingsModel implements _SettingsModel {
       const DeepCollectionEquality().hash(_pauses),
       const DeepCollectionEquality().hash(_hops),
       tenPin,
-      pumpPin,
-      pwmPin);
+      pumpPin);
 
   @JsonKey(ignore: true)
   @override
@@ -350,8 +332,7 @@ abstract class _SettingsModel implements SettingsModel {
       required final List<PauseModel> pauses,
       required final List<HopModel> hops,
       required final int tenPin,
-      required final int pumpPin,
-      required final int pwmPin}) = _$_SettingsModel;
+      required final int pumpPin}) = _$_SettingsModel;
 
   factory _SettingsModel.fromJson(Map<String, dynamic> json) =
       _$_SettingsModel.fromJson;
@@ -376,8 +357,6 @@ abstract class _SettingsModel implements SettingsModel {
   int get tenPin;
   @override
   int get pumpPin;
-  @override
-  int get pwmPin;
   @override
   @JsonKey(ignore: true)
   _$$_SettingsModelCopyWith<_$_SettingsModel> get copyWith =>

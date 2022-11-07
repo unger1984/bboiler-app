@@ -28,7 +28,6 @@ mixin _$SessionModel {
   int get pause => throw _privateConstructorUsedError;
   int get hop => throw _privateConstructorUsedError;
   bool get ten => throw _privateConstructorUsedError;
-  double get tenPower => throw _privateConstructorUsedError;
   bool get pump => throw _privateConstructorUsedError;
   bool get manualTen => throw _privateConstructorUsedError;
   bool get manualPump => throw _privateConstructorUsedError;
@@ -57,7 +56,6 @@ abstract class $SessionModelCopyWith<$Res> {
       int pause,
       int hop,
       bool ten,
-      double tenPower,
       bool pump,
       bool manualTen,
       bool manualPump,
@@ -87,7 +85,6 @@ class _$SessionModelCopyWithImpl<$Res, $Val extends SessionModel>
     Object? pause = null,
     Object? hop = null,
     Object? ten = null,
-    Object? tenPower = null,
     Object? pump = null,
     Object? manualTen = null,
     Object? manualPump = null,
@@ -128,10 +125,6 @@ class _$SessionModelCopyWithImpl<$Res, $Val extends SessionModel>
           ? _value.ten
           : ten // ignore: cast_nullable_to_non_nullable
               as bool,
-      tenPower: null == tenPower
-          ? _value.tenPower
-          : tenPower // ignore: cast_nullable_to_non_nullable
-              as double,
       pump: null == pump
           ? _value.pump
           : pump // ignore: cast_nullable_to_non_nullable
@@ -177,7 +170,6 @@ abstract class _$$_SessionModelCopyWith<$Res>
       int pause,
       int hop,
       bool ten,
-      double tenPower,
       bool pump,
       bool manualTen,
       bool manualPump,
@@ -205,7 +197,6 @@ class __$$_SessionModelCopyWithImpl<$Res>
     Object? pause = null,
     Object? hop = null,
     Object? ten = null,
-    Object? tenPower = null,
     Object? pump = null,
     Object? manualTen = null,
     Object? manualPump = null,
@@ -246,10 +237,6 @@ class __$$_SessionModelCopyWithImpl<$Res>
           ? _value.ten
           : ten // ignore: cast_nullable_to_non_nullable
               as bool,
-      tenPower: null == tenPower
-          ? _value.tenPower
-          : tenPower // ignore: cast_nullable_to_non_nullable
-              as double,
       pump: null == pump
           ? _value.pump
           : pump // ignore: cast_nullable_to_non_nullable
@@ -290,7 +277,6 @@ class _$_SessionModel implements _SessionModel {
       required this.pause,
       required this.hop,
       required this.ten,
-      required this.tenPower,
       required this.pump,
       required this.manualTen,
       required this.manualPump,
@@ -324,8 +310,6 @@ class _$_SessionModel implements _SessionModel {
   @override
   final bool ten;
   @override
-  final double tenPower;
-  @override
   final bool pump;
   @override
   final bool manualTen;
@@ -342,7 +326,7 @@ class _$_SessionModel implements _SessionModel {
 
   @override
   String toString() {
-    return 'SessionModel(status: $status, temp: $temp, tempNext: $tempNext, timeNext: $timeNext, waitMin: $waitMin, pause: $pause, hop: $hop, ten: $ten, tenPower: $tenPower, pump: $pump, manualTen: $manualTen, manualPump: $manualPump, timeCurrent: $timeCurrent, timeStart: $timeStart, timeLast: $timeLast)';
+    return 'SessionModel(status: $status, temp: $temp, tempNext: $tempNext, timeNext: $timeNext, waitMin: $waitMin, pause: $pause, hop: $hop, ten: $ten, pump: $pump, manualTen: $manualTen, manualPump: $manualPump, timeCurrent: $timeCurrent, timeStart: $timeStart, timeLast: $timeLast)';
   }
 
   @override
@@ -360,8 +344,6 @@ class _$_SessionModel implements _SessionModel {
             (identical(other.pause, pause) || other.pause == pause) &&
             (identical(other.hop, hop) || other.hop == hop) &&
             (identical(other.ten, ten) || other.ten == ten) &&
-            (identical(other.tenPower, tenPower) ||
-                other.tenPower == tenPower) &&
             (identical(other.pump, pump) || other.pump == pump) &&
             (identical(other.manualTen, manualTen) ||
                 other.manualTen == manualTen) &&
@@ -387,7 +369,6 @@ class _$_SessionModel implements _SessionModel {
       pause,
       hop,
       ten,
-      tenPower,
       pump,
       manualTen,
       manualPump,
@@ -419,7 +400,6 @@ abstract class _SessionModel implements SessionModel {
       required final int pause,
       required final int hop,
       required final bool ten,
-      required final double tenPower,
       required final bool pump,
       required final bool manualTen,
       required final bool manualPump,
@@ -446,8 +426,6 @@ abstract class _SessionModel implements SessionModel {
   int get hop;
   @override
   bool get ten;
-  @override
-  double get tenPower;
   @override
   bool get pump;
   @override

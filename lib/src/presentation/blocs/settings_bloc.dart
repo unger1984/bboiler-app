@@ -10,8 +10,7 @@ part 'settings_bloc.freezed.dart';
 @freezed
 class SettingsEvent with _$SettingsEvent {
   const SettingsEvent._();
-  const factory SettingsEvent.save({required int tenPin, required int pumpPin, required int pwmPin}) =
-      SaveSettingsEvent;
+  const factory SettingsEvent.save({required int tenPin, required int pumpPin}) = SaveSettingsEvent;
 }
 
 @freezed
@@ -41,12 +40,10 @@ class SettingsBLoC extends Bloc<SettingsEvent, SettingsState> {
   }
 
   Future<void> _save(SaveSettingsEvent event, Emitter<SettingsState> emitter) async {
-    _settings = SettingsModel.fromEntity(_settings)
-        .copyWith(tenPin: event.tenPin, pumpPin: event.pumpPin, pwmPin: event.pwmPin);
+    _settings = SettingsModel.fromEntity(_settings).copyWith(tenPin: event.tenPin, pumpPin: event.pumpPin);
     _settingsProvider.saveSettings(_settings);
     if (_deviceRepository.ten.getPin() != event.tenPin) _deviceRepository.ten.changePin(event.tenPin);
     if (_deviceRepository.pump.getPin() != event.pumpPin) _deviceRepository.pump.changePin(event.pumpPin);
-    if (_deviceRepository.tenPower.getPin() != event.pwmPin) _deviceRepository.tenPower.changePin(event.pwmPin);
     emitter(DataSettingsState(_settings));
   }
 }

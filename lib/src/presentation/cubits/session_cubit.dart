@@ -116,14 +116,6 @@ class SessionCubit extends Cubit<SessionCubitState> {
     }
   }
 
-  void changeTenPower(double value) {
-    _bloc = true;
-    _deviceRepository.tenPower.setPower(value);
-    _session = SessionModel.fromEntity(_session).copyWith(tenPower: _deviceRepository.tenPower.getPower());
-    emit(DataSessionCubitState(_session));
-    _bloc = false;
-  }
-
   void changeTenState(bool value) {
     _bloc = true;
     value ? _deviceRepository.ten.on() : _deviceRepository.ten.off();
@@ -143,7 +135,7 @@ class SessionCubit extends Cubit<SessionCubitState> {
   void setHeat(bool status, double temp) {
     _bloc = true;
     status ? _deviceRepository.ten.on() : _deviceRepository.ten.off();
-    status ? _deviceRepository.pump.on() : _deviceRepository.pump.off();
+    if (!status) _deviceRepository.pump.off();
     _session = SessionModel.fromEntity(_session).copyWith(
       timeLast: status ? DateTime.now() : null,
       tempNext: temp,
@@ -158,7 +150,7 @@ class SessionCubit extends Cubit<SessionCubitState> {
   void setPause(bool status, double temp, int time) {
     _bloc = true;
     status ? _deviceRepository.ten.on() : _deviceRepository.ten.off();
-    status ? _deviceRepository.pump.on() : _deviceRepository.pump.off();
+    if (!status) _deviceRepository.pump.off();
     _session = SessionModel.fromEntity(_session).copyWith(
       timeLast: status ? DateTime.now() : null,
       tempNext: temp,

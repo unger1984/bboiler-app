@@ -16,6 +16,20 @@ class BoilingPause extends StatefulWidget {
 class _BoilingPauseState extends State<BoilingPause> {
   final tempEditController = TextEditingController();
   final timeEditController = TextEditingController();
+  final focusNodeTemp = FocusNode();
+  final focusNodeTime = FocusNode();
+
+  void focusListenerTemp() {
+    if (focusNodeTemp.hasFocus) {
+      tempEditController.selection = TextSelection(baseOffset: 0, extentOffset: tempEditController.text.length);
+    }
+  }
+
+  void focusListenerTime() {
+    if (focusNodeTime.hasFocus) {
+      timeEditController.selection = TextSelection(baseOffset: 0, extentOffset: timeEditController.text.length);
+    }
+  }
 
   @override
   void initState() {
@@ -23,6 +37,16 @@ class _BoilingPauseState extends State<BoilingPause> {
     tempEditController.text = session.tempNext.toString();
     timeEditController.text = session.timeNext.toString();
     super.initState();
+    focusNodeTemp.addListener(focusListenerTemp);
+    focusNodeTime.addListener(focusListenerTime);
+    focusNodeTemp.requestFocus();
+  }
+
+  @override
+  void dispose() {
+    focusNodeTemp.removeListener(focusListenerTemp);
+    focusNodeTime.removeListener(focusListenerTime);
+    super.dispose();
   }
 
   @override
@@ -39,6 +63,10 @@ class _BoilingPauseState extends State<BoilingPause> {
       }
     }
 
+    void handleSubmit(_) {
+      handlePause();
+    }
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -48,6 +76,8 @@ class _BoilingPauseState extends State<BoilingPause> {
             textAlign: TextAlign.end,
             enabled: !isOn,
             controller: tempEditController,
+            focusNode: focusNodeTemp,
+            onSubmitted: handleSubmit,
             decoration: const InputDecoration(labelText: "℃"),
             keyboardType: TextInputType.number,
             inputFormatters: <TextInputFormatter>[
@@ -62,6 +92,8 @@ class _BoilingPauseState extends State<BoilingPause> {
             textAlign: TextAlign.end,
             enabled: !isOn,
             controller: timeEditController,
+            focusNode: focusNodeTime,
+            onSubmitted: handleSubmit,
             decoration: const InputDecoration(labelText: "Мин."),
             keyboardType: TextInputType.number,
             inputFormatters: <TextInputFormatter>[

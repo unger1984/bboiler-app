@@ -15,11 +15,26 @@ class BoilingHeat extends StatefulWidget {
 
 class _BoilingHeatState extends State<BoilingHeat> {
   final textEditController = TextEditingController();
+  final focusNode = FocusNode();
+
+  void focusListener() {
+    if (focusNode.hasFocus) {
+      textEditController.selection = TextSelection(baseOffset: 0, extentOffset: textEditController.text.length);
+    }
+  }
 
   @override
   void initState() {
     textEditController.text = BlocProvider.of<SessionCubit>(context).state.data.tempNext.toString();
     super.initState();
+    focusNode.addListener(focusListener);
+    focusNode.requestFocus();
+  }
+
+  @override
+  void dispose() {
+    focusNode.removeListener(focusListener);
+    super.dispose();
   }
 
   @override
@@ -35,6 +50,10 @@ class _BoilingHeatState extends State<BoilingHeat> {
       }
     }
 
+    void handleSubmit(_) {
+      handleHeat();
+    }
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -44,6 +63,8 @@ class _BoilingHeatState extends State<BoilingHeat> {
             textAlign: TextAlign.end,
             enabled: !isOn,
             controller: textEditController,
+            focusNode: focusNode,
+            onSubmitted: handleSubmit,
             decoration: const InputDecoration(labelText: "℃"),
             keyboardType: TextInputType.number,
             inputFormatters: <TextInputFormatter>[

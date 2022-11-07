@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:bboiler/src/domain/providers/relay_provider.dart';
+import 'package:bboiler/src/utils/logger.dart';
 import 'package:flutter_gpiod/flutter_gpiod.dart';
 import 'package:uuid/uuid.dart';
 
@@ -11,30 +10,42 @@ class RelayProviderImpl extends RelayProvider {
   final uuid = const Uuid();
 
   RelayProviderImpl({required int pin}) : _pin = pin {
-    final chip = FlutterGpiod.instance.chips.singleWhere(
-      (chip) => chip.label == 'pinctrl-bcm2711',
-      orElse: () => FlutterGpiod.instance.chips.singleWhere((chip) => chip.label == 'pinctrl-bcm2835'),
-    );
-    _gpio = chip.lines[_pin];
-    _gpio.requestOutput(initialValue: false, consumer: 'flutter_gpiod ${uuid.v4()}');
-    _gpio.setValue(false);
+    try {
+      final chip = FlutterGpiod.instance.chips.singleWhere(
+        (chip) => chip.label == 'pinctrl-bcm2711',
+        orElse: () => FlutterGpiod.instance.chips.singleWhere((chip) => chip.label == 'pinctrl-bcm2835'),
+      );
+      _gpio = chip.lines[_pin];
+      _gpio.requestOutput(initialValue: false, consumer: 'flutter_gpiod ${uuid.v4()}');
+      _gpio.setValue(false);
+    } catch (exc) {
+      logger.e("Relay Error", exc);
+    }
     state = false;
   }
 
   @override
   void off() {
-    if (Platform.isLinux) {
-      _gpio.setValue(false);
+    if (status()) {
+      try {
+        _gpio.setValue(false);
+      } catch (exc) {
+        logger.e("Relay Error", exc);
+      }
+      state = false;
     }
-    state = false;
   }
 
   @override
   void on() {
-    if (Platform.isLinux) {
-      _gpio.setValue(true);
+    if (!status()) {
+      try {
+        _gpio.setValue(true);
+      } catch (exc) {
+        logger.e("Relay Error", exc);
+      }
+      state = true;
     }
-    state = true;
   }
 
   @override
@@ -44,17 +55,18 @@ class RelayProviderImpl extends RelayProvider {
 
   @override
   void dispose() {
-    _gpio.release();
+    try {
+      _gpio.release();
+    } catch (exc) {
+      logger.e("Relay Error", exc);
+    }
   }
 
   @override
   void changePin(int pin) {
-    if (Platform.isLinux) {
-      _gpio.setValue(false);
-      _gpio.release();
-    }
     _pin = pin;
-    if (Platform.isLinux) {
+    try {
+      _gpio.setValue(false);
       final chip = FlutterGpiod.instance.chips.singleWhere(
         (chip) => chip.label == 'pinctrl-bcm2711',
         orElse: () => FlutterGpiod.instance.chips.singleWhere((chip) => chip.label == 'pinctrl-bcm2835'),
@@ -62,7 +74,8 @@ class RelayProviderImpl extends RelayProvider {
       _gpio = chip.lines[22];
       _gpio.requestOutput(initialValue: false, consumer: 'flutter_gpiod ${uuid.v4()}');
       _gpio.setValue(false);
-      state = false;
+    } catch (exc) {
+      logger.e("Relay Error", exc);
     }
   }
 
