@@ -9,6 +9,8 @@ import 'package:path_provider/path_provider.dart';
 class TempProviderImpl extends TempProvider {
   final String testFile = 'temp.txt';
   final Random _random = Random();
+  List<TempEntity> _prevTemp = [];
+  int failCounter = 0;
 
   @override
   Future<List<TempEntity>> getTemp() async {
@@ -25,16 +27,31 @@ class TempProviderImpl extends TempProvider {
       }
     }
     if (result.isEmpty) {
-      final directory = await getApplicationDocumentsDirectory();
-      final file = File('${directory.path}/$testFile');
-      if (!file.existsSync()) {
-        await _updateTest(0);
+      if (_prevTemp.isNotEmpty) {
+        // Если до этого были показатели.
+        if (failCounter <= 2) {
+          // Если попыток было меньше трех.
+          result.addAll(_prevTemp);
+          failCounter++;
+        }
       }
-      final temp = await _getTempFromFile(file);
-      if (temp != null) {
-        result.add(TempEntity(name: 'Test', value: temp));
-        await _updateTest(temp);
+      if (result.isEmpty) {
+        final directory = await getApplicationDocumentsDirectory();
+        final file = File('${directory.path}/$testFile');
+        if (!file.existsSync()) {
+          await _updateTest(0);
+        }
+        final temp = await _getTempFromFile(file);
+        if (temp != null) {
+          result.add(TempEntity(name: 'Test', value: temp));
+          await _updateTest(temp);
+        }
+        failCounter = 0;
+        _prevTemp = [];
       }
+    } else {
+      failCounter = 0;
+      _prevTemp = result;
     }
 
     return result;
