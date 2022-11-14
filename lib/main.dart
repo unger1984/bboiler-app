@@ -21,8 +21,6 @@ const baseUrl = 'https://owa.famil.ru/s8zf4hss2lj9fv';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // await DesktopWindow.toggleFullScreen();
-
   final settingsProvider = SettingsProviderImpl();
   final sessionProvider = SessionProviderImpl();
 
